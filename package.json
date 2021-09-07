@@ -1,0 +1,25 @@
+{
+  "name": "local-post-its",
+  "version": "1.0.0",
+  "description": "A post-its web application that works with the IndexedDB API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lbotano/local-post-its.git"
+  },
+  "keywords": [
+    "post-its",
+    "webapp",
+    "react",
+    "indexeddb"
+  ],
+  "author": "Lautaro Bernabé Otaño (lbotano)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/lbotano/local-post-its/issues"
+  },
+  "homepage": "https://github.com/lbotano/local-post-its#readme"
+}
