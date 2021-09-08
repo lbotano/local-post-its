@@ -2,9 +2,10 @@
   "name": "local-post-its",
   "version": "1.0.0",
   "description": "A post-its web application that works with the IndexedDB API",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:dev": "webpack --mode=development",
+    "start": "webpack serve --mode=development"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,27 @@
   "bugs": {
     "url": "https://github.com/lbotano/local-post-its/issues"
   },
-  "homepage": "https://github.com/lbotano/local-post-its#readme"
+  "homepage": "https://github.com/lbotano/local-post-its#readme",
+  "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^6.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.52.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.1.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "localforage": "^1.10.0",
+    "moment": "^2.29.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.5",
+    "redux": "^4.1.1",
+    "redux-thunk": "^2.3.0",
+    "uuid": "^8.3.2"
+  }
 }
