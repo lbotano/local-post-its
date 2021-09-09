@@ -1,4 +1,19 @@
+/*
+ * ==============
+ * MediaDisplayer
+ * ==============
+ *
+ * Purpose:
+ * Detect what kind of media does the given url have
+ * and display it accordingly (image, video, audio)
+ *
+ * Props:
+ *  - media: base64 code in the following format: datatype/format;base64
+ *    that represents the media to be displayer
+ */
+
 import React from 'react'
+import { CardMedia } from '@material-ui/core'
 
 const MediaDisplayer = ({ media }) => {
   const getMediaType = (base64) => (
@@ -15,22 +30,38 @@ const MediaDisplayer = ({ media }) => {
   const mediaTypeSpecific = getMediaType(media)
   const mediaType = mediaTypeSpecific.substring(0, mediaTypeSpecific.indexOf('/'))
 
+  const containerStyle = {
+    height: 250
+  }
+  const mediaStyle = {
+    maxHeight: '100%',
+    objectFit: 'contain'
+  }
+
   switch(mediaType) {
     case 'image':
-      return <img src={media} />
+      return (
+        <div style={containerStyle}>
+          <CardMedia component="img" image={media} style={mediaStyle} />
+        </div>
+      )
     case 'video':
       return (
-        <video controls width="250">
-          <source src={media} type={mediaTypeSpecific} />
-          Your browser does not support HTML video.
-        </video>
+        <div style={containerStyle}>
+          <CardMedia component="video" controls style={mediaStyle}>
+            <source src={media} type={mediaTypeSpecific} />
+            Your browser does not support HTML video.
+          </CardMedia>
+        </div>
       )
     case 'audio':
       return (
-        <audio controls>
-          <source src={media} type={mediaTypeSpecific} />
-          Your browser does not support HTML audio
-        </audio>
+        <div style={containerStyle}>
+          <CardMedia component="audio" controls style={mediaStyle}>
+            <source src={media} type={mediaTypeSpecific} />
+            Your browser does not support HTML audio
+          </CardMedia>
+        </div>
       )
     default:
       return (

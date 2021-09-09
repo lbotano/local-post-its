@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import {
+  Button, IconButton, Input, FormGroup
+} from '@material-ui/core'
+import { AttachFile } from '@material-ui/icons'
 
 import { createNote } from '../reducers/noteReducer'
 import MediaDisplayer from './MediaDisplayer'
@@ -26,19 +30,43 @@ const NoteForm = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <div>
-        <input type="text" value={note} onChange={(event) => setNote(event.target.value)} />
-      </div>
-      <div>
-        <input type="file" accept="image/*,video/*,audio/*" onChange={async (event) => setMedia(await toBase64(event.target.files[0]))} />
-      </div>
-      <div>
-        <span>Media preview:</span>
-        {
-          <MediaDisplayer media={media} />
-        }
-      </div>
-      <input type="submit" />
+      <FormGroup>
+        <Input
+          placeholder="Note title"
+        />
+      </FormGroup>
+      <FormGroup>
+        <Input
+          value={note}
+          onChange={(event) => setNote(event.target.value)}
+          placeholder="Note content"
+          multiline
+        />
+      </FormGroup>
+      <FormGroup>
+        <div>
+          <IconButton color="primary" component="label">
+            <AttachFile />
+            <input
+              type="file"
+              hidden
+              accept="image/*,video/*,audio/*"
+              onChange={async (event) => setMedia(await toBase64(event.target.files[0]))}
+            />
+          </IconButton>
+        </div>
+        <div>
+          <span>Media preview:</span>
+          {
+            <MediaDisplayer media={media} />
+          }
+        </div>
+      </FormGroup>
+      <FormGroup>
+        <Button variant="contained" color="primary" type="submit">
+          Submit
+        </Button>
+      </FormGroup>
     </form>
   )
 }
