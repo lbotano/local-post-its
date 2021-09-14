@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import {
   Button, IconButton, Input, FormGroup
@@ -8,14 +9,17 @@ import { AttachFile } from '@material-ui/icons'
 import { createNote } from '../reducers/noteReducer'
 import MediaDisplayer from './MediaDisplayer'
 
-const NoteForm = () => {
+const NoteForm = ({ onSubmit }) => {
   const dispatch = useDispatch()
+  const [title, setTitle] = useState('')
   const [note, setNote] = useState('')
   const [media, setMedia] = useState(null)
 
-  const onSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
-    dispatch(createNote(note, media))
+    dispatch(createNote(note, title, media))
+    onSubmit()
+    setTitle('')
     setNote('')
     setMedia(null)
   }
@@ -29,10 +33,15 @@ const NoteForm = () => {
   })
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       <FormGroup>
         <Input
+          value={title}
+          onChange={
+            (event) => setTitle(event.target.value ? event.target.value : null)
+          }
           placeholder="Note title"
+          style={{ fontSize:'2em' }}
         />
       </FormGroup>
       <FormGroup>
@@ -51,14 +60,16 @@ const NoteForm = () => {
               type="file"
               hidden
               accept="image/*,video/*,audio/*"
-              onChange={async (event) => setMedia(await toBase64(event.target.files[0]))}
+              onChange={
+                async (event) => setMedia(await toBase64(event.target.files[0]))
+              }
             />
           </IconButton>
         </div>
         <div>
           <span>Media preview:</span>
           {
-            <MediaDisplayer media={media} />
+            <MediaDisplayer media={media} height={250} />
           }
         </div>
       </FormGroup>
@@ -69,6 +80,10 @@ const NoteForm = () => {
       </FormGroup>
     </form>
   )
+}
+
+NoteForm.propTypes = {
+  onSubmit: PropTypes.func
 }
 
 export default NoteForm

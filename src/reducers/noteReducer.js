@@ -1,4 +1,3 @@
-import localforage from 'localforage'
 import { v4 as uuid } from 'uuid'
 
 import { noteStore } from '../localforageStores'
@@ -31,11 +30,12 @@ export const updateNotes = () => {
   }
 }
 
-export const createNote = (content, media = null) => {
+export const createNote = (content, title = null, media = null) => {
   return async (dispatch) => {
     const newNote = {
       id: uuid(),
       timestamp: Date.now(),
+      title,
       content,
       media
     }

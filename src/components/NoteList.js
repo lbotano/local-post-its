@@ -1,61 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import {
-  Button,
-  Grid,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  Typography
-} from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 
-import MediaDisplayer from './MediaDisplayer'
+import Note from './Note'
+import NewButton from './NewButton'
+import NoteFormModal from './NoteFormModal'
 
 const NoteList = () => {
-  const notes = useSelector((state) => state.notes.sort((a, b) => b.timestamp - a.timestamp))
-  
+  const notes = useSelector(
+    (state) => state.notes.sort((a, b) => b.timestamp - a.timestamp)
+  )
+
+  // Open or close the new note modal
+  const [modalOpen, setModalOpen] = useState(false)
+
   // This styles make it so the content of the note stretches
   // and pushes the buttons to the bottom
   const gridStyles = {
     display: 'flex',
     alignItems: 'stretch'
   }
-  const cardStyles = {
-    flexGrow: 1,
-    display: 'flex',
-    flexDirection: 'column',
-  }
-  const actionAreaStyles = {
-    flexGrow: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch'
-  }
+
+  const openModal = () => setModalOpen(true)
 
   return (
-    <Grid container alignItems="stretch" spacing={3}>
-      {
-        notes.map((note) => (
-          <Grid item xs={6} sm={3} style={gridStyles}>
-            <Card key={note.id} style={cardStyles}>
-              <CardActionArea style={actionAreaStyles}>
-                {note.media ? <MediaDisplayer media={note.media} /> : null}
-                <CardContent>
-                  <Typography variant="body2" component="p">{note.content}</Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  Remove
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))
-      }
-    </Grid>
+    <>
+      <NoteFormModal open={modalOpen} setOpen={setModalOpen} />
+      <Grid container alignItems="stretch" spacing={3}>
+        <Grid item xs={12} sm={4} style={gridStyles}>
+          <NewButton onClick={openModal}/>
+        </Grid>
+        {
+          notes.map((note) => (
+            <Grid key={note.id} item xs={12} sm={4} style={gridStyles}>
+              <Note note={note} />
+            </Grid>
+          ))
+        }
+      </Grid>
+    </>
   )
 }
 
