@@ -67,7 +67,6 @@ const NoteForm = ({ onSubmit }) => {
           </IconButton>
         </div>
         <div>
-          <span>Media preview:</span>
           {
             <MediaDisplayer media={media} height={250} />
           }

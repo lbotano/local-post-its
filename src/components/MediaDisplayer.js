@@ -26,7 +26,7 @@ const MediaDisplayer = ({ media, height = null }) => {
   )
 
   if (!media) {
-    return <small>No media loaded</small>
+    return null
   }
 
   const mediaTypeSpecific = getMediaType(media)
@@ -70,9 +70,7 @@ const MediaDisplayer = ({ media, height = null }) => {
       </div>
     )
   default:
-    return (
-      <small>No media loaded</small>
-    )
+    return null
   }
 }
 
