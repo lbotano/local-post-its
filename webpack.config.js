@@ -1,4 +1,7 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WorkboxPlugin = require('workbox-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const config = {
   entry: ['@babel/polyfill', './src/index.js'],
@@ -6,6 +9,35 @@ const config = {
     path: path.resolve(__dirname, 'build'),
     filename: 'main.js'
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      favicon: './assets/logo-75p.png'
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: './src/manifest.json',
+          to: './manifest.json'
+        },
+        {
+          from: './assets/**/*',
+          to: './'
+        }
+      ]
+    }),
+    ...(
+      process.env.NODE_ENV === 'production'
+        ? [
+          new WorkboxPlugin.GenerateSW({
+            clientsClaim: true,
+            skipWaiting: true,
+            maximumFileSizeToCacheInBytes: 5000000
+          })
+        ]
+        : []
+    )
+  ],
   module: {
     rules: [
       {
@@ -24,7 +56,10 @@ const config = {
   devServer: {
     static: path.resolve(__dirname, 'build'),
     compress: true,
-    port: 3000
+    port: 3000,
+    devMiddleware: {
+      writeToDisk: true
+    }
   },
   devtool: 'source-map'
 }

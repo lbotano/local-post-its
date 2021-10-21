@@ -33,7 +33,7 @@ const App = () => {
       <AppBar position={'sticky'}>
         <Toolbar>
           <Typography variant="h6">
-            Local Post-its
+            Your notes
           </Typography>
         </Toolbar>
       </AppBar>

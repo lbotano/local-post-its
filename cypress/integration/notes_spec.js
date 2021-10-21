@@ -13,7 +13,7 @@ describe('Basic tests', () => {
   })
 })
 
-describe('Note creation', () => {
+describe('Note creation and deletion', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000')
     cy.clearLocalStorage()
@@ -46,5 +46,26 @@ describe('Note creation', () => {
 
     cy.contains('Test note')
     cy.contains('Test content')
+  })
+
+  it('deletes a note', () => {
+    cy.contains('New note').click()
+    cy
+      .get('input[placeholder="Note title"]')
+      .type('Test note')
+      .should('have.value', 'Test note')
+    cy
+      .get('textarea[placeholder="Note content"]')
+      .type('Test content')
+      .should('have.value', 'Test content')
+    cy.contains('Submit').click()
+
+    cy.contains('Test note')
+    cy.contains('Test content')
+
+    cy.contains('Remove').click()
+
+    cy.contains('Test note').should('not.exist')
+    cy.contains('Test content').should('not.exist')
   })
 })
