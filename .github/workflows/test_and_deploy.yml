@@ -1,0 +1,31 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
+
+jobs:
+  deployment_pipeline:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - name: npm install
+        run: npm install
+      - name: lint
+        run: npm run lint
+      - name: e2e tests
+        uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
+        with:
+          command: npm run test test:e2e
+          start: npm run start:build
+          wait-on: http://localhost:8080
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@0f24da7de3e7e135102609a4c9633b025be8411b
+        with:
+          branch: gh-pages
+          folder: build
