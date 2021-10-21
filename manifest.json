@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "version": "1.0",
+  "name": "Local Post-Its",
+  "short_name": "localpostits",
+  "description": "Note's web application that relies on local storage",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "assets/logo-32p.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/logo-512p.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "fullscreen",
+  "orientation": "portrait-primary",
+  "theme_color": "#fdd835",
+  "background_color": "#ffffff"
+}
