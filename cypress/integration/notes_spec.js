@@ -1,10 +1,10 @@
 describe('Basic tests', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000')
+    cy.visit('http://localhost:8080')
   })
 
   it('loads the site', () => {
-    cy.contains('Local Post-its')
+    cy.contains('Your notes')
   })
 
   it('opens new note window', () => {
@@ -15,7 +15,7 @@ describe('Basic tests', () => {
 
 describe('Note creation and deletion', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000')
+    cy.visit('http://localhost:8080')
     cy.clearLocalStorage()
     cy.clearCookies()
     indexedDB.deleteDatabase('localpostits')
