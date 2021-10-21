@@ -18,6 +18,8 @@ jobs:
         run: npm install
       - name: lint
         run: npm run lint
+      - name: build
+        run: npm run build
       - name: e2e tests
         uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
         with:
