@@ -21,7 +21,7 @@ jobs:
       - name: e2e tests
         uses: cypress-io/github-action@2113e5bc19c45979ba123df6e07256d2aaba9a33
         with:
-          command: npm run test test:e2e
+          command: npm run test:e2e
           start: npm run start:build
           wait-on: http://localhost:8080
       - name: Deploy to GitHub Pages
