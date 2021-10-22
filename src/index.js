@@ -1,24 +1,13 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom'
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from '@material-ui/core/styles'
 
-import noteReducer from './reducers/noteReducer'
-
-import App from './App'
+import store from './store'
 import theme from './theme'
 
-const store = createStore(
-  combineReducers({
-    notes: noteReducer
-  }),
-  composeWithDevTools(
-    applyMiddleware(thunk)
-  )
-)
+const App = lazy(() => import('./App'))
+import Loading from './components/Loading'
 
 if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
   window.addEventListener('load', () => {
@@ -27,10 +16,12 @@ if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
 }
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </ThemeProvider>,
+  <Suspense fallback={<Loading />}>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ThemeProvider>
+  </Suspense>,
   document.getElementById('root')
 )

@@ -4,7 +4,7 @@
   "description": "A post-its web application that works with the IndexedDB API",
   "main": "src/index.js",
   "scripts": {
-    "build": "NODE_ENV=production webpack",
+    "build": "NODE_ENV=production webpack --mode production",
     "start:build": "NODE_ENV=production http-server -p 8080 build",
     "start": "NODE_ENV=test webpack serve --mode=development",
     "lint": "eslint ./src",

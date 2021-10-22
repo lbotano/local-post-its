@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Suspense, lazy, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {
   CssBaseline,
@@ -10,11 +10,18 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 
 import { updateNotes } from './reducers/noteReducer'
-import NoteList from './components/NoteList'
+const NoteList = lazy(() => import('./components/NoteList'))
+import Loading from './components/Loading'
 
 const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start'
+  },
   main: {
-    marginTop: '2em'
+    marginTop: '2em',
+    flexGrow: 1
   }
 })
 
@@ -28,7 +35,7 @@ const App = () => {
   }, [])
 
   return (
-    <>
+    <div className={classes.container}>
       <CssBaseline />
       <AppBar position={'sticky'}>
         <Toolbar>
@@ -38,9 +45,11 @@ const App = () => {
         </Toolbar>
       </AppBar>
       <Container maxWidth={'md'} className={classes.main}>
-        <NoteList />
+        <Suspense fallback={<Loading />}>
+          <NoteList />
+        </Suspense>
       </Container>
-    </>
+    </div>
   )
 }
 
