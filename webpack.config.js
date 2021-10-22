@@ -12,7 +12,7 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      favicon: './assets/logo-75p.png'
+      favicon: './assets/logo-32p.png'
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -21,7 +21,7 @@ const config = {
           to: './manifest.json'
         },
         {
-          from: './assets/**/*',
+          from: './assets/**/*.png',
           to: './'
         }
       ]
