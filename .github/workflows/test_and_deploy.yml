@@ -27,6 +27,7 @@ jobs:
           start: npm run start:build
           wait-on: http://localhost:8080
       - name: Deploy to GitHub Pages
+        if: ${{ github.event_name == 'push' && !contains(join(toJson(github.event.commits.*.message), ''), '#skip') }}
         uses: JamesIves/github-pages-deploy-action@0f24da7de3e7e135102609a4c9633b025be8411b
         with:
           branch: gh-pages
