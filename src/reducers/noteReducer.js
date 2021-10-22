@@ -3,6 +3,9 @@ import { v4 as uuid } from 'uuid'
 import { noteStore } from '../localforageStores'
 
 const noteReducer = (state = [], action) => {
+  console.log('=====')
+  console.log('state: ', state)
+  console.log('action: ', action)
   switch (action.type) {
   case 'SET_NOTES':
     return action.data
@@ -55,7 +58,9 @@ export const createNote = (content, title = null, media = null) => {
 export const deleteNote = (id) => {
   return async (dispatch) => {
     try {
+      console.log('not yet')
       await noteStore.removeItem(id)
+      console.log('deleted store item')
       dispatch({
         type: 'DELETE_NOTE',
         data: id

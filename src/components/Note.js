@@ -10,7 +10,7 @@ import {
   Typography
 } from '@material-ui/core'
 
-import { deleteNote } from '../reducers/noteReducer'
+import deleteNote from '../reducers/noteReducer'
 import MediaDisplayer from './MediaDisplayer'
 
 const Note = ({ note }) => {

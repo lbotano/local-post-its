@@ -7,7 +7,8 @@ const config = {
   entry: ['@babel/polyfill', './src/index.js'],
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'main.js'
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js'
   },
   plugins: [
     new HtmlWebpackPlugin({
