@@ -9,6 +9,10 @@ import { AttachFile } from '@material-ui/icons'
 import { createNote } from '../reducers/noteReducer'
 import MediaDisplayer from './MediaDisplayer'
 
+//
+// Form for creating a note
+//
+
 const NoteForm = ({ onSubmit }) => {
   const dispatch = useDispatch()
   const [title, setTitle] = useState('')

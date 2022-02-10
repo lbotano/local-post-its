@@ -4,6 +4,10 @@ import { Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { AddCircle } from '@material-ui/icons'
 
+//
+// Button for creating a new note
+//
+
 const NewButton = ({ onClick }) => {
   const useStyles = makeStyles({
     root: {
