@@ -63,7 +63,9 @@ describe('Note creation and deletion', () => {
     cy.contains('Test note')
     cy.contains('Test content')
 
-    cy.contains('Remove').click()
+    cy
+      .get('button[aria-label="delete note"]')
+      .click()
 
     cy.contains('Test note').should('not.exist')
     cy.contains('Test content').should('not.exist')
